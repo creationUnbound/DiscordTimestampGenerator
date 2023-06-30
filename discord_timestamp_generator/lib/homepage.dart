@@ -33,8 +33,8 @@ class _HomePageState extends State<HomePage> {
                   DateTime? pickedDate = await showDatePicker(
                     context: context,
                     initialDate: DateTime.now(),
-                    firstDate: DateTime(1971),
-                    lastDate: DateTime(2101),
+                    firstDate: DateTime(1970),
+                    lastDate: DateTime(2100),
                   );
                 },
               ),
