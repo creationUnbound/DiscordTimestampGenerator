@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -36,6 +37,9 @@ class _HomePageState extends State<HomePage> {
                     firstDate: DateTime(1970),
                     lastDate: DateTime(2100),
                   );
+                  if (pickedDate != null) {
+                    dateController.text = DateFormat.yMd().format(pickedDate);
+                  }
                 },
               ),
             )));
