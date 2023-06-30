@@ -37,8 +37,16 @@ class _HomePageState extends State<HomePage> {
                     firstDate: DateTime(1970),
                     lastDate: DateTime(2100),
                   );
-                  if (pickedDate != null) {
-                    dateController.text = DateFormat.yMd().format(pickedDate);
+                  if (mounted && pickedDate != null) {
+                    TimeOfDay? pickedTime = await showTimePicker(
+                      context: context,
+                      initialTime: TimeOfDay.now(),
+                    );
+                    if (pickedTime != null) {
+                      // This is where a function for translating
+                      // pickedDate and pickedTime to Unix time would be.
+                      dateController.text = DateFormat.yMd().format(pickedDate);
+                    }
                   }
                 },
               ),
