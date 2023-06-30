@@ -37,6 +37,7 @@ class _HomePageState extends State<HomePage> {
                     firstDate: DateTime(1970),
                     lastDate: DateTime(2100),
                   );
+                  //await Future.delayed(const Duration(milliseconds: 200));
                   if (mounted && pickedDate != null) {
                     TimeOfDay? pickedTime = await showTimePicker(
                       context: context,
