@@ -17,7 +17,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("Discord Timestamp Generator")),
+        appBar: AppBar(
+          title: const Text("Discord Timestamp Generator"),
+          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+        ),
         body: Container(
             padding: const EdgeInsets.all(10),
             child: Center(
