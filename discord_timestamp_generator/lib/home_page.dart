@@ -40,6 +40,10 @@ class _HomePageState extends State<HomePage> {
                     DateFormat.yMd().add_jm().format(dateTimePicker.dateTime);
                 // Do something with the dateTime attributes here
               }),
+          DateCard(
+            dateTime: dateTimePicker.dateTime,
+            onPressed: () {},
+          )
         ]));
   }
 }
