@@ -2,7 +2,19 @@ import 'package:flutter/material.dart';
 
 class DateTimePicker {
   BuildContext context;
+  late DateTime dateTime;
+
   DateTimePicker(this.context);
+
+  void pickDateTime() async {
+    DateTime? date = await pickDate();
+    if (date == null) return;
+    TimeOfDay? time = await pickTime();
+    if (time == null) return;
+
+    dateTime =
+        DateTime(date.year, date.month, date.day, time.hour, time.minute);
+  }
 
   Future<DateTime?> pickDate() => showDatePicker(
         context: context,

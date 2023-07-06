@@ -30,11 +30,15 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.all(10),
             child: Center(
               child: TextField(
-                controller: dateController,
-                decoration: const InputDecoration(
-                    icon: Icon(Icons.calendar_today), labelText: "Enter Date"),
-                readOnly: true,
-                onTap: () async {
+                  controller: dateController,
+                  decoration: const InputDecoration(
+                      icon: Icon(Icons.calendar_today),
+                      labelText: "Enter Date"),
+                  readOnly: true,
+                  onTap: () {
+                    dateTimePicker.pickDateTime();
+                  }
+                  /*() async {
                   DateTime? pickedDate = await dateTimePicker.pickDate();
                   //await Future.delayed(const Duration(milliseconds: 200));
                   if (mounted && pickedDate != null) {
@@ -46,8 +50,8 @@ class _HomePageState extends State<HomePage> {
                       dateController.text = DateFormat.yMd().format(pickedDate);
                     }
                   }
-                },
-              ),
+                },*/
+                  ),
             )));
   }
 }
