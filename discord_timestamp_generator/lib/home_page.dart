@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import './date_time_picker.dart';
+import 'utility/date_time_picker.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -21,6 +21,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     DateTimePicker dateTimePicker = DateTimePicker(context);
+
     return Scaffold(
         appBar: AppBar(
           title: const Text("Discord Timestamp Generator"),
@@ -40,21 +41,8 @@ class _HomePageState extends State<HomePage> {
                     dateController.text = DateFormat.yMd()
                         .add_jm()
                         .format(dateTimePicker.dateTime);
-                  }
-                  /*() async {
-                  DateTime? pickedDate = await dateTimePicker.pickDate();
-                  //await Future.delayed(const Duration(milliseconds: 200));
-                  if (mounted && pickedDate != null) {
-                    TimeOfDay? pickedTime = await dateTimePicker.pickTime();
-                    if (pickedTime != null) {
-                      // This is where a function for translating
-                      // pickedDate and pickedTime to Unix time would be.
-                      // DateTime dateTime =
-                      dateController.text = DateFormat.yMd().format(pickedDate);
-                    }
-                  }
-                },*/
-                  ),
+                    // Do something with the dateTime attributes here
+                  }),
             )));
   }
 }
