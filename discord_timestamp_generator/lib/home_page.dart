@@ -35,8 +35,11 @@ class _HomePageState extends State<HomePage> {
                       icon: Icon(Icons.calendar_today),
                       labelText: "Enter Date"),
                   readOnly: true,
-                  onTap: () {
-                    dateTimePicker.pickDateTime();
+                  onTap: () async {
+                    await dateTimePicker.pickDateTime();
+                    dateController.text = DateFormat.yMd()
+                        .add_jm()
+                        .format(dateTimePicker.dateTime);
                   }
                   /*() async {
                   DateTime? pickedDate = await dateTimePicker.pickDate();
