@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class DateTimePicker {
   BuildContext context;
-  late DateTime dateTime;
+  late DateTime dateTime = DateTime.now();
 
   DateTimePicker(this.context);
 
