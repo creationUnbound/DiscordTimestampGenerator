@@ -12,8 +12,13 @@ class DateTimePicker {
     TimeOfDay? time = await pickTime();
     if (time == null) return;
 
-    dateTime =
-        DateTime(date.year, date.month, date.day, time.hour, time.minute);
+    dateTime = DateTime(
+      date.year,
+      date.month,
+      date.day,
+      time.hour,
+      time.minute,
+    );
   }
 
   Future<DateTime?> pickDate() => showDatePicker(
@@ -23,6 +28,8 @@ class DateTimePicker {
         lastDate: DateTime(2100),
       );
 
-  Future<TimeOfDay?> pickTime() =>
-      showTimePicker(context: context, initialTime: TimeOfDay.now());
+  Future<TimeOfDay?> pickTime() => showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now(),
+      );
 }
