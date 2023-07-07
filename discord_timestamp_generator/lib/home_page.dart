@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'utility/date_time_picker.dart';
-import 'widget/date_card.dart';
+import 'widget/timestamp_display.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -50,11 +50,11 @@ class _HomePageState extends State<HomePage> {
                     // Do something with the dateTime attributes here
                   }),
               // TODO: Currently working on making DateCard functional
-              DateCard(
+              TimestampDisplay(
                 dateTime: dateTimePicker.dateTime,
                 onPressed: () {},
               ),
-              DateCard(
+              TimestampDisplay(
                 dateTime: dateTimePicker.dateTime,
                 onPressed: () {},
               ),
