@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'utility/date_time_picker.dart';
+import 'utility/timestamp_style.dart';
 import 'widget/timestamp_display.dart';
 
 class HomePage extends StatefulWidget {
@@ -51,7 +52,8 @@ class _HomePageState extends State<HomePage> {
                         .format(dateTimePicker.dateTime);
                     // Do something with the dateTime attributes here
                   }),
-              // TODO: Currently working on making DateCard functional
+              // TODO: Trying to make a for loop based on the amount of values in TimestampStyle
+              //for (var i = 0; i < 10; i++) Text('Item $i'),
               TimestampDisplay(
                 dateTime: dateTimePicker.dateTime,
                 onPressed: () {},
