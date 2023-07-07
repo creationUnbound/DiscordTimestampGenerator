@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-class DateCard extends StatelessWidget {
+class TimestampDisplay extends StatelessWidget {
   final DateTime dateTime;
   final VoidCallback onPressed;
-  const DateCard({super.key, required this.dateTime, required this.onPressed});
+  const TimestampDisplay(
+      {super.key, required this.dateTime, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
