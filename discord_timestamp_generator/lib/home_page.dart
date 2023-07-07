@@ -23,9 +23,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     DateTimePicker dateTimePicker = DateTimePicker(context);
     //For resizing GridView properly
-    var size = MediaQuery.of(context).size;
-    final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
-    final double itemWidth = size.width / 2;
+    //var size = MediaQuery.of(context).size;
+    //final double itemHeight = size.height / 10;
+    //final double itemWidth = size.width / 2;
 
     return Scaffold(
         appBar: AppBar(
@@ -50,17 +50,14 @@ class _HomePageState extends State<HomePage> {
                     // Do something with the dateTime attributes here
                   }),
               // TODO: Currently working on making DateCard functional
-              GridView(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                  ),
-                  shrinkWrap: true,
-                  children: [
-                    DateCard(
-                      dateTime: dateTimePicker.dateTime,
-                      onPressed: () {},
-                    ),
-                  ])
+              DateCard(
+                dateTime: dateTimePicker.dateTime,
+                onPressed: () {},
+              ),
+              DateCard(
+                dateTime: dateTimePicker.dateTime,
+                onPressed: () {},
+              ),
             ]));
   }
 }
