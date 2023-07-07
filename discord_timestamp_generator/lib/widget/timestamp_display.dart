@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class TimestampDisplay extends StatelessWidget {
   final DateTime dateTime;
   final VoidCallback onPressed;
+
   const TimestampDisplay(
       {super.key, required this.dateTime, required this.onPressed});
 
@@ -23,12 +24,11 @@ class TimestampDisplay extends StatelessWidget {
               padding: EdgeInsets.all(10.0),
               child: Text("Timestamp"),
             )),
-        Card(
-            color: theme.colorScheme.surfaceVariant,
-            child: const Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Text("Copy text"),
-            )),
+        ElevatedButton.icon(
+          onPressed: () {},
+          icon: const Icon(Icons.copy),
+          label: const Text('Copy to clipboard'),
+        ),
       ],
     );
   }

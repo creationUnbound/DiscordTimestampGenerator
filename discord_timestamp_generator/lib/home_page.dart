@@ -16,7 +16,9 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    dateController.text = "";
+    DateTimePicker dateTimePicker = DateTimePicker(context);
+    dateController.text =
+        DateFormat.yMd().add_jm().format(dateTimePicker.dateTime);
   }
 
   @override
