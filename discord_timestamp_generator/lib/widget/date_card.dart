@@ -7,11 +7,16 @@ class DateCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Card(
-          elevation: 0,
-          color: Theme.of(context).colorScheme.surfaceVariant,
-          child: const Text("Test")),
+    final theme = Theme.of(context);
+    final style = theme.textTheme.displayMedium!.copyWith(
+      color: theme.colorScheme.onPrimary,
     );
+
+    return Card(
+        color: theme.colorScheme.surfaceVariant,
+        child: const Padding(
+          padding: EdgeInsets.all(10.0),
+          child: Text("Test"),
+        ));
   }
 }
