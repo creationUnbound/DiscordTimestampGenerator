@@ -25,6 +25,16 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     DateTimePicker dateTimePicker = DateTimePicker(context);
+    //List of TimestampDisplay widgets
+    List<TimestampDisplay> timestampDisplays = [];
+    for (var values in TimestampStyle.values) {
+      timestampDisplays.add(
+        TimestampDisplay(
+          dateTime: dateTimePicker.dateTime,
+          onPressed: () {},
+        ),
+      );
+    }
     //For resizing GridView properly
     //var size = MediaQuery.of(context).size;
     //final double itemHeight = size.height / 10;
@@ -36,9 +46,9 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         ),
         body: ListView(
-            padding: const EdgeInsets.all(10),
-            //scrollDirection: Axis.vertical,
-            children: [
+          padding: const EdgeInsets.all(10),
+          children: [
+            Column(children: [
               TextField(
                   controller: dateController,
                   decoration: const InputDecoration(
@@ -52,16 +62,9 @@ class _HomePageState extends State<HomePage> {
                         .format(dateTimePicker.dateTime);
                     // Do something with the dateTime attributes here
                   }),
-              // TODO: Trying to make a for loop based on the amount of values in TimestampStyle
-              //for (var i = 0; i < 10; i++) Text('Item $i'),
-              TimestampDisplay(
-                dateTime: dateTimePicker.dateTime,
-                onPressed: () {},
-              ),
-              TimestampDisplay(
-                dateTime: dateTimePicker.dateTime,
-                onPressed: () {},
-              ),
-            ]));
+            ]),
+            Column(children: timestampDisplays),
+          ],
+        ));
   }
 }
