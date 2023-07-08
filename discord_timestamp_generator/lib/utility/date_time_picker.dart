@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//Brings up a preformatted DatePicker and TimePicker simultaneously.
 class DateTimePicker {
   BuildContext context;
   DateTime dateTime = DateTime.now();

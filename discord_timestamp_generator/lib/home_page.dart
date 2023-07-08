@@ -1,4 +1,5 @@
 import 'package:discord_timestamp_generator/utility/discord_unixstamp/discord_unixstamp.dart';
+import 'package:discord_timestamp_generator/utility/timestamp_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'utility/date_time_picker.dart';
@@ -26,6 +27,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     DateTimePicker dateTimePicker = DateTimePicker(context);
+    //var timestampNotifier = context.watch<TimestampNotifier>();
 
     //List of TimestampDisplay widgets
     List<TimestampDisplay> timestampDisplays = [];
@@ -33,6 +35,7 @@ class _HomePageState extends State<HomePage> {
       timestampDisplays.add(
         TimestampDisplay(
           discordUnixstamp: DiscordUnixstamp(style, dateTimePicker.dateTime),
+          // TODO: Implement this
           onPressed: () {},
         ),
       );
@@ -58,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                     dateController.text = DateFormat.yMd()
                         .add_jm()
                         .format(dateTimePicker.dateTime);
-                    // Do something with the dateTime attributes here
+                    // TODO: Tell the TimestampDisplays that they can update their dateTime
                   }),
             ]),
             Column(children: timestampDisplays),

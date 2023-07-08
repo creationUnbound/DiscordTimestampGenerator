@@ -11,24 +11,30 @@ class TimestampDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    /*
-    final style = theme.textTheme.displayMedium!.copyWith(
-      color: theme.colorScheme.onPrimary,
-    );
-    */
 
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Card(
-            color: theme.colorScheme.surfaceVariant,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text(discordUnixstamp.toString()),
-            )),
-        ElevatedButton.icon(
-          onPressed: () {},
-          icon: const Icon(Icons.copy),
-          label: const Text('Copy text'),
+        DefaultTextStyle.merge(
+          style: const TextStyle(
+            fontSize: 14,
+          ),
+          child: Text(discordUnixstamp.style.label),
+        ),
+        Row(
+          children: [
+            Card(
+                color: theme.colorScheme.surfaceVariant,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(discordUnixstamp.toString()),
+                )),
+            ElevatedButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.copy),
+              label: const Text('Copy text'),
+            ),
+          ],
         ),
       ],
     );
