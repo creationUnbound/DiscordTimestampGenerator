@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'utility/date_time_picker.dart';
-import 'utility/timestamp_style.dart';
+import 'utility/unixstamp/unixstamp_style.dart';
 import 'widget/timestamp_display.dart';
 
 class HomePage extends StatefulWidget {
@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
     DateTimePicker dateTimePicker = DateTimePicker(context);
     //List of TimestampDisplay widgets
     List<TimestampDisplay> timestampDisplays = [];
-    for (var values in TimestampStyle.values) {
+    for (var value in UnixstampStyle.values) {
       timestampDisplays.add(
         TimestampDisplay(
           dateTime: dateTimePicker.dateTime,
@@ -35,10 +35,6 @@ class _HomePageState extends State<HomePage> {
         ),
       );
     }
-    //For resizing GridView properly
-    //var size = MediaQuery.of(context).size;
-    //final double itemHeight = size.height / 10;
-    //final double itemWidth = size.width / 2;
 
     return Scaffold(
         appBar: AppBar(
