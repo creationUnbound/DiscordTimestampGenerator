@@ -1,11 +1,12 @@
+import 'package:discord_timestamp_generator/utility/discord_unixstamp/discord_unixstamp.dart';
 import 'package:flutter/material.dart';
 
 class TimestampDisplay extends StatelessWidget {
-  final DateTime dateTime;
+  final DiscordUnixstamp discordUnixstamp;
   final VoidCallback onPressed;
 
   const TimestampDisplay(
-      {super.key, required this.dateTime, required this.onPressed});
+      {super.key, required this.discordUnixstamp, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +21,14 @@ class TimestampDisplay extends StatelessWidget {
       children: [
         Card(
             color: theme.colorScheme.surfaceVariant,
-            child: const Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Text("Timestamp"),
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(discordUnixstamp.toString()),
             )),
         ElevatedButton.icon(
           onPressed: () {},
           icon: const Icon(Icons.copy),
-          label: const Text('Copy to clipboard'),
+          label: const Text('Copy text'),
         ),
       ],
     );

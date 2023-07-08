@@ -1,7 +1,8 @@
+import 'package:discord_timestamp_generator/utility/discord_unixstamp/discord_unixstamp.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'utility/date_time_picker.dart';
-import 'utility/unixstamp/unixstamp_style.dart';
+import 'utility/discord_unixstamp/discord_unixstamp_style.dart';
 import 'widget/timestamp_display.dart';
 
 class HomePage extends StatefulWidget {
@@ -25,12 +26,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     DateTimePicker dateTimePicker = DateTimePicker(context);
+
     //List of TimestampDisplay widgets
     List<TimestampDisplay> timestampDisplays = [];
-    for (var value in UnixstampStyle.values) {
+    for (var style in DiscordUnixstampStyle.values) {
       timestampDisplays.add(
         TimestampDisplay(
-          dateTime: dateTimePicker.dateTime,
+          discordUnixstamp: DiscordUnixstamp(style, dateTimePicker.dateTime),
           onPressed: () {},
         ),
       );
