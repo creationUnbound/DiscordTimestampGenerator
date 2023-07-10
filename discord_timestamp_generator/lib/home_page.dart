@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'utility/date_time_picker.dart';
 import 'utility/discord_unixstamp/discord_unixstamp_style.dart';
 import 'widget/timestamp_display.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -27,7 +28,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     DateTimePicker dateTimePicker = DateTimePicker(context);
-    //var timestampNotifier = context.watch<TimestampNotifier>();
+    // TODO: This isn't working
+    var timestampNotifier = context.watch<TimestampNotifier>();
 
     //List of TimestampDisplay widgets
     List<TimestampDisplay> timestampDisplays = [];
