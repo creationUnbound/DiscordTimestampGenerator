@@ -1,8 +1,7 @@
 import 'package:discord_timestamp_generator/utility/discord_unixstamp/discord_unixstamp_style.dart';
 import 'package:discord_timestamp_generator/utility/seconds_since_epoch.dart';
-import 'package:flutter/material.dart';
 
-class DiscordUnixstamp with ChangeNotifier {
+class DiscordUnixstamp {
   int unixstamp = 0;
   DiscordUnixstampStyle style;
 
@@ -12,7 +11,6 @@ class DiscordUnixstamp with ChangeNotifier {
 
   void update(DateTime dateTime) {
     unixstamp = dateTime.secondsSinceEpoch;
-    notifyListeners();
   }
 
   @override

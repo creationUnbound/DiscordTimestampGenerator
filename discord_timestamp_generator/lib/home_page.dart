@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'utility/date_time_picker.dart';
 import 'utility/discord_unixstamp/discord_unixstamp_style.dart';
 import 'widget/timestamp_display.dart';
-import 'package:provider/provider.dart';
+//import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -61,6 +61,7 @@ class _HomePageState extends State<HomePage> {
                         .add_jm()
                         .format(dateTimePicker.dateTime);
                     // TODO: Tell the TimestampDisplays that they can update their dateTime
+                    setState(() {});
                   }),
             ]),
             Column(children: timestampDisplays),
