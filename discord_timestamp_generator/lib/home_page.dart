@@ -60,8 +60,11 @@ class _HomePageState extends State<HomePage> {
                     dateController.text = DateFormat.yMd()
                         .add_jm()
                         .format(dateTimePicker.dateTime);
-                    // TODO: Tell the TimestampDisplays that they can update their dateTime
-                    setState(() {});
+                    // Tells the TimestampDisplays that they can update their dateTime.
+                    for (var timestampDisplay in timestampDisplays) {
+                      timestampDisplay.discordUnixstamp
+                          .update(dateTimePicker.dateTime);
+                    }
                   }),
             ]),
             Column(children: timestampDisplays),

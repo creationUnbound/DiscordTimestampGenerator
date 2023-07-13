@@ -13,18 +13,9 @@ class TimestampDisplay extends StatefulWidget {
 }
 
 class _TimestampDisplayState extends State<TimestampDisplay> {
-  late DiscordUnixstamp _discordUnixstamp;
-
   @override
   void initState() {
     super.initState();
-    _discordUnixstamp = widget.discordUnixstamp;
-  }
-
-  void updateDiscordUnixstamp(DateTime dateTime) {
-    setState(() {
-      _discordUnixstamp.update(dateTime);
-    });
   }
 
   @override
@@ -38,16 +29,20 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
           style: const TextStyle(
             fontSize: 14,
           ),
-          child: Text(_discordUnixstamp.style.label),
+          child: Text(widget.discordUnixstamp.style.label),
         ),
         Row(
           children: [
-            Card(
-                color: theme.colorScheme.surfaceVariant,
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(_discordUnixstamp.toString()),
-                )),
+            ListenableBuilder(
+                listenable: widget.discordUnixstamp,
+                builder: (BuildContext context, Widget? child) {
+                  return Card(
+                      color: theme.colorScheme.surfaceVariant,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text(widget.discordUnixstamp.toString()),
+                      ));
+                }),
             ElevatedButton.icon(
               onPressed: () {},
               icon: const Icon(Icons.copy),
