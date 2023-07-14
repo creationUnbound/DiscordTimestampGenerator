@@ -1,5 +1,6 @@
 import 'package:discord_timestamp_generator/utility/discord_unixstamp/discord_unixstamp.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class TimestampDisplay extends StatefulWidget {
   final DiscordUnixstamp discordUnixstamp;
@@ -44,7 +45,11 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
                       ));
                 }),
             ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () async {
+                await Clipboard.setData(
+                    // Copies timestamp to clipboard
+                    ClipboardData(text: widget.discordUnixstamp.toString()));
+              },
               icon: const Icon(Icons.copy),
               label: const Text('Copy text'),
             ),
