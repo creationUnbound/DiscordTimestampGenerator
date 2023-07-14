@@ -23,39 +23,40 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        DefaultTextStyle.merge(
-          style: const TextStyle(
-            fontSize: 14,
-          ),
-          child: Text(widget.discordUnixstamp.style.label),
-        ),
-        Row(
-          children: [
-            ListenableBuilder(
-                listenable: widget.discordUnixstamp,
-                builder: (BuildContext context, Widget? child) {
-                  return Card(
+    return ListenableBuilder(
+        listenable: widget.discordUnixstamp,
+        builder: (BuildContext context, Widget? child) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              DefaultTextStyle.merge(
+                style: const TextStyle(
+                  fontSize: 14,
+                ),
+                child: Text(widget.discordUnixstamp.style.label),
+              ),
+              Row(
+                children: [
+                  Card(
                       color: theme.colorScheme.surfaceVariant,
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Text(widget.discordUnixstamp.toString()),
-                      ));
-                }),
-            ElevatedButton.icon(
-              onPressed: () async {
-                await Clipboard.setData(
-                    // Copies timestamp to clipboard
-                    ClipboardData(text: widget.discordUnixstamp.toString()));
-              },
-              icon: const Icon(Icons.copy),
-              label: const Text('Copy text'),
-            ),
-          ],
-        ),
-      ],
-    );
+                      )),
+                  ElevatedButton.icon(
+                    onPressed: () async {
+                      await Clipboard.setData(
+                          // Copies timestamp to clipboard
+                          ClipboardData(
+                              text: widget.discordUnixstamp.toString()));
+                    },
+                    icon: const Icon(Icons.copy),
+                    label: const Text('Copy text'),
+                  ),
+                ],
+              ),
+            ],
+          );
+        });
   }
 }
