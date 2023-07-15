@@ -1,5 +1,4 @@
 import 'package:discord_timestamp_generator/utility/boolean_text_notifier.dart';
-import 'package:discord_timestamp_generator/utility/clipboard_comparator.dart';
 import 'package:discord_timestamp_generator/utility/discord_unixstamp/discord_unixstamp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
