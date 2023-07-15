@@ -1,13 +1,17 @@
+import 'package:discord_timestamp_generator/utility/boolean_text_notifier.dart';
+import 'package:discord_timestamp_generator/utility/clipboard_comparator.dart';
 import 'package:discord_timestamp_generator/utility/discord_unixstamp/discord_unixstamp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class TimestampDisplay extends StatefulWidget {
   final DiscordUnixstamp discordUnixstamp;
-  final VoidCallback onPressed;
+  final BooleanTextNotifier clipboardButtonNotifier;
 
   const TimestampDisplay(
-      {super.key, required this.discordUnixstamp, required this.onPressed});
+      {super.key,
+      required this.discordUnixstamp,
+      required this.clipboardButtonNotifier});
 
   @override
   State<TimestampDisplay> createState() => _TimestampDisplayState();
@@ -24,7 +28,8 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
     final theme = Theme.of(context);
 
     return ListenableBuilder(
-        listenable: widget.discordUnixstamp,
+        listenable: Listenable.merge(
+            [widget.discordUnixstamp, widget.clipboardButtonNotifier]),
         builder: (BuildContext context, Widget? child) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,15 +49,15 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
                         child: Text(widget.discordUnixstamp.toString()),
                       )),
                   ElevatedButton.icon(
-                    onPressed: () async {
-                      await Clipboard.setData(
-                          // Copies timestamp to clipboard
-                          ClipboardData(
-                              text: widget.discordUnixstamp.toString()));
-                    },
-                    icon: const Icon(Icons.copy),
-                    label: const Text('Copy text'),
-                  ),
+                      onPressed: () async {
+                        await Clipboard.setData(
+                            // Copies timestamp to clipboard
+                            ClipboardData(
+                                text: widget.discordUnixstamp.toString()));
+                      },
+                      icon: const Icon(Icons.copy),
+                      //TODO: Have this change dynamically
+                      label: Text(widget.clipboardButtonNotifier.text))
                 ],
               ),
             ],

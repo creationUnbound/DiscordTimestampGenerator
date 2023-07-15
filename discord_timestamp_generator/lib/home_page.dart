@@ -1,3 +1,5 @@
+import 'package:discord_timestamp_generator/utility/boolean_text_notifier.dart';
+import 'package:discord_timestamp_generator/utility/clipboard_comparator.dart';
 import 'package:discord_timestamp_generator/utility/discord_unixstamp/discord_unixstamp.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -34,8 +36,8 @@ class _HomePageState extends State<HomePage> {
       timestampDisplays.add(
         TimestampDisplay(
           discordUnixstamp: DiscordUnixstamp(style, dateTimePicker.dateTime),
-          // TODO: Implement this
-          onPressed: () {},
+          clipboardButtonNotifier:
+              BooleanTextNotifier("Copied!", "Copy text", false),
         ),
       );
     }
@@ -64,9 +66,15 @@ class _HomePageState extends State<HomePage> {
                     for (var timestampDisplay in timestampDisplays) {
                       timestampDisplay.discordUnixstamp
                           .update(dateTimePicker.dateTime);
+                      // Tells the button to update text
+                      // TODO: In wrong place, shouldn't update when textfield updates
+                      timestampDisplay.clipboardButtonNotifier.setText(
+                          ClipboardComparator.isEqual(
+                              timestampDisplay.discordUnixstamp.toString()));
                     }
                   }),
             ]),
+            // TODO: Maybe have a notifier here that all the children share?
             Column(children: timestampDisplays),
           ],
         ));
