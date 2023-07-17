@@ -1,12 +1,13 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class ClipboardComparator {
-  // Checks if the clipboard contents is equal to a given string.
-  static bool isEqual(String string) {
-    Clipboard.getData(Clipboard.kTextPlain).then((value) {
-      if (value == null) return false;
-      if (string == value.text) return true;
+class ClipboardNotifier with ChangeNotifier {
+  String text = "";
+
+  Future<void> updateTextFromClipboard() async {
+    await Clipboard.getData(Clipboard.kTextPlain).then((value) {
+      text = value?.text ?? "";
+      notifyListeners();
     });
-    return false;
   }
 }
