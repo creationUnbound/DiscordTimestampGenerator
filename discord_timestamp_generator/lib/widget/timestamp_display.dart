@@ -2,6 +2,7 @@ import 'package:discord_timestamp_generator/utility/clipboard_comparator.dart';
 import 'package:discord_timestamp_generator/utility/discord_unixstamp/discord_unixstamp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class TimestampDisplay extends StatefulWidget {
@@ -38,7 +39,8 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
                 style: const TextStyle(
                   fontSize: 14,
                 ),
-                child: Text(widget.discordUnixstamp.style.label),
+                child: Text(DateFormat(widget.discordUnixstamp.style.format)
+                    .format(widget.discordUnixstamp.dateTime)),
               ),
               Row(
                 children: [

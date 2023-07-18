@@ -4,14 +4,16 @@ import 'package:flutter/material.dart';
 
 class DiscordUnixstamp with ChangeNotifier {
   int unixstamp = 0;
+  DateTime dateTime = DateTime.now();
   DiscordUnixstampStyle style;
 
-  DiscordUnixstamp(this.style, DateTime dateTime) {
+  DiscordUnixstamp(this.style, this.dateTime) {
     unixstamp = dateTime.secondsSinceEpoch;
   }
 
   void update(DateTime dateTime) {
     unixstamp = dateTime.secondsSinceEpoch;
+    this.dateTime = dateTime;
     notifyListeners();
   }
 

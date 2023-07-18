@@ -1,15 +1,19 @@
 // Defines the timestamp style for Discord timestamps.
+
 enum DiscordUnixstampStyle {
-  defaultStyle("Default"),
-  shortTime("Short Time", discriminator: ":t"),
-  longTime("Long Time", discriminator: ":T"),
-  shortDate("Short Date", discriminator: ":d"),
-  longDate("Long Date", discriminator: ":D"),
-  shortDateTime("Short Date/Time", discriminator: ":f"),
-  longDateTime("Long Date/Time", discriminator: ":F"),
-  relativeTime("Relative Time", discriminator: ":R");
+  defaultStyle("Default", "MMMM c, yyyy h:mm a"),
+  shortTime("Short Time", "h:mm a", discriminator: ":t"),
+  longTime("Long Time", "h:mm:ss a", discriminator: ":T"),
+  shortDate("Short Date", "M/dd/yyyy", discriminator: ":d"),
+  longDate("Long Date", "MMMM d, yyyy", discriminator: ":D"),
+  shortDateTime("Short Date/Time", "MMMM d, yyyy h:mm a", discriminator: ":f"),
+  longDateTime("Long Date/Time", "EEEE, MMMM d, yyyy h:mm a",
+      discriminator: ":F"),
+  relativeTime("Relative Time", "'PLACEHOLDER'", discriminator: ":R");
 
   final String label;
   final String discriminator;
-  const DiscordUnixstampStyle(this.label, {this.discriminator = ""});
+  final String format;
+  const DiscordUnixstampStyle(this.label, this.format,
+      {this.discriminator = ""});
 }
