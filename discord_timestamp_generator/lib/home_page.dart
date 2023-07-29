@@ -1,4 +1,4 @@
-import 'package:discord_timestamp_generator/utility/clipboard_comparator.dart';
+import 'package:discord_timestamp_generator/utility/clipboard_notifier.dart';
 import 'package:discord_timestamp_generator/utility/discord_unixstamp/discord_unixstamp.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -73,6 +73,7 @@ class _HomePageState extends State<HomePage> {
                           .update(dateTimePicker.dateTime);
                     }
                   }),
+              const SizedBox(height: 10),
             ]),
             ChangeNotifierProvider.value(
                 value: clipboardComparator,

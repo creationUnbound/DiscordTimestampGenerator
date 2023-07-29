@@ -1,4 +1,4 @@
-import 'package:discord_timestamp_generator/utility/clipboard_comparator.dart';
+import 'package:discord_timestamp_generator/utility/clipboard_notifier.dart';
 import 'package:discord_timestamp_generator/utility/discord_unixstamp/discord_unixstamp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -37,21 +37,41 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
             children: [
               DefaultTextStyle.merge(
                 style: const TextStyle(
-                  fontSize: 14,
+                  fontSize: 12,
                 ),
-                child: Text(DateFormat(widget.discordUnixstamp.style.format)
-                    .format(widget.discordUnixstamp.dateTime)),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 7, bottom: 0, right: 0, top: 0),
+                  child: Text(DateFormat(widget.discordUnixstamp.style.format)
+                      .format(widget.discordUnixstamp.dateTime)),
+                ),
               ),
               Row(
                 children: [
-                  Card(
-                      color: theme.colorScheme.surfaceVariant,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Text(widget.discordUnixstamp.toString()),
-                      )),
+                  SizedBox(
+                    width: 155,
+                    child: GestureDetector(
+                      onTap: () async {
+                        await Clipboard.setData(
+                            // Copies timestamp to clipboard
+                            ClipboardData(
+                                text: widget.discordUnixstamp.toString()));
+                        await clipboardNotifier.updateTextFromClipboard();
+                      },
+                      child: Card(
+                          color: theme.colorScheme.surfaceVariant,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Align(
+                                alignment: Alignment.center,
+                                child:
+                                    Text(widget.discordUnixstamp.toString())),
+                          )),
+                    ),
+                  ),
                   ElevatedButton.icon(
                       onPressed: () async {
+                        // Need a way to encapsulate this in a function so it can be called from multiple parts of this file
                         await Clipboard.setData(
                             // Copies timestamp to clipboard
                             ClipboardData(
@@ -68,6 +88,7 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
                           : "Copy Text"))
                 ],
               ),
+              const SizedBox(height: 10),
             ],
           );
         });
