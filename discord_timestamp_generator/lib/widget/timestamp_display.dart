@@ -38,15 +38,16 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
               DefaultTextStyle.merge(
                 style: const TextStyle(
                   fontSize: 12,
+                  fontStyle: FontStyle.italic,
                 ),
                 child: Padding(
                   padding: const EdgeInsets.only(
-                      left: 7, bottom: 0, right: 0, top: 0),
+                      left: 7, bottom: 2, right: 0, top: 4),
                   child: Text(DateFormat(widget.discordUnixstamp.style.format)
                       .format(widget.discordUnixstamp.dateTime)),
                 ),
               ),
-              Row(
+              Wrap(
                 children: [
                   SizedBox(
                     width: 155,
@@ -61,7 +62,8 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
                       child: Card(
                           color: theme.colorScheme.surfaceVariant,
                           child: Padding(
-                            padding: const EdgeInsets.all(10.0),
+                            padding: const EdgeInsets.only(
+                                left: 10, bottom: 6, right: 10, top: 6),
                             child: Align(
                                 alignment: Alignment.center,
                                 child:
@@ -69,26 +71,29 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
                           )),
                     ),
                   ),
-                  ElevatedButton.icon(
-                      onPressed: () async {
-                        // Need a way to encapsulate this in a function so it can be called from multiple parts of this file
-                        await Clipboard.setData(
-                            // Copies timestamp to clipboard
-                            ClipboardData(
-                                text: widget.discordUnixstamp.toString()));
-                        await clipboardNotifier.updateTextFromClipboard();
-                      },
-                      icon: Icon((clipboardNotifier.text ==
-                              widget.discordUnixstamp.toString())
-                          ? Icons.check
-                          : Icons.copy),
-                      label: Text((clipboardNotifier.text ==
-                              widget.discordUnixstamp.toString())
-                          ? "Copied!"
-                          : "Copy Text"))
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 2, bottom: 6, right: 10, top: 4),
+                    child: ElevatedButton.icon(
+                        onPressed: () async {
+                          // Need a way to encapsulate this in a function so it can be called from multiple parts of this file
+                          await Clipboard.setData(
+                              // Copies timestamp to clipboard
+                              ClipboardData(
+                                  text: widget.discordUnixstamp.toString()));
+                          await clipboardNotifier.updateTextFromClipboard();
+                        },
+                        icon: Icon((clipboardNotifier.text ==
+                                widget.discordUnixstamp.toString())
+                            ? Icons.check
+                            : Icons.copy),
+                        label: Text((clipboardNotifier.text ==
+                                widget.discordUnixstamp.toString())
+                            ? "Copied!"
+                            : "Copy Text")),
+                  )
                 ],
               ),
-              const SizedBox(height: 10),
             ],
           );
         });

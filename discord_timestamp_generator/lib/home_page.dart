@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
             ]),
             ChangeNotifierProvider.value(
                 value: clipboardComparator,
-                child: Column(children: timestampDisplays)),
+                child: Wrap(children: timestampDisplays)),
           ],
         ));
   }
