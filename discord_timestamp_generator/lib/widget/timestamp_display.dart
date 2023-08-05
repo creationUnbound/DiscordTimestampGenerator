@@ -1,5 +1,6 @@
 import 'package:discord_timestamp_generator/utility/clipboard_notifier.dart';
 import 'package:discord_timestamp_generator/utility/discord_unixstamp/discord_unixstamp.dart';
+import 'package:discord_timestamp_generator/utility/media_aware_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -28,7 +29,7 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     var clipboardNotifier = context.watch<ClipboardNotifier>();
-    const expandLimit = 930;
+    const double expandLimit = 930;
 
     return ListenableBuilder(
         listenable: widget.discordUnixstamp,
@@ -38,9 +39,7 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
             children: [
               DefaultTextStyle.merge(
                 style: TextStyle(
-                  fontSize: MediaQuery.of(context).size.width > expandLimit
-                      ? MediaQuery.of(context).size.width / 70
-                      : 14,
+                  fontSize: MediaAwareSize(context, expandLimit, .015, 14).size,
                 ),
                 child: Padding(
                   padding: const EdgeInsets.only(
@@ -52,12 +51,11 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
               Wrap(
                 children: [
                   SizedBox(
-                    width: MediaQuery.of(context).size.width > expandLimit
-                        ? MediaQuery.of(context).size.width / 6
-                        : 155,
-                    height: MediaQuery.of(context).size.width > expandLimit
-                        ? MediaQuery.of(context).size.width / 18.5
-                        : 50,
+                    width: MediaAwareSize(context, expandLimit, .169, 155).size,
+                    //MediaQuery.of(context).size.width > expandLimit
+                    //? MediaQuery.of(context).size.width / 6
+                    //: 155,
+                    height: MediaAwareSize(context, expandLimit, .055, 50).size,
                     child: GestureDetector(
                       onTap: () async {
                         await Clipboard.setData(
@@ -75,14 +73,9 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
                                 alignment: Alignment.center,
                                 child: DefaultTextStyle.merge(
                                     style: TextStyle(
-                                        fontSize:
-                                            MediaQuery.of(context).size.width >
-                                                    expandLimit
-                                                ? MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    70
-                                                : 14),
+                                        fontSize: MediaAwareSize(
+                                                context, expandLimit, .015, 14)
+                                            .size),
                                     child: Text(
                                         widget.discordUnixstamp.toString()))),
                           )),
