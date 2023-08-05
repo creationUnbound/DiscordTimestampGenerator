@@ -9,7 +9,7 @@ class MediaAwareSize {
   MediaAwareSize(
       this.context, this.lowerBound, this.sizeFactor, this.defaultSize);
 
-  double get size => MediaQuery.of(context).size.width > lowerBound
+  double get widthBasedSize => MediaQuery.of(context).size.width > lowerBound
       ? MediaQuery.of(context).size.width * sizeFactor
       : defaultSize;
 }

@@ -39,7 +39,8 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
             children: [
               DefaultTextStyle.merge(
                 style: TextStyle(
-                  fontSize: MediaAwareSize(context, expandLimit, .015, 14).size,
+                  fontSize: MediaAwareSize(context, expandLimit, .015, 14)
+                      .widthBasedSize,
                 ),
                 child: Padding(
                   padding: const EdgeInsets.only(
@@ -51,11 +52,10 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
               Wrap(
                 children: [
                   SizedBox(
-                    width: MediaAwareSize(context, expandLimit, .169, 155).size,
-                    //MediaQuery.of(context).size.width > expandLimit
-                    //? MediaQuery.of(context).size.width / 6
-                    //: 155,
-                    height: MediaAwareSize(context, expandLimit, .055, 50).size,
+                    width: MediaAwareSize(context, expandLimit, .169, 155)
+                        .widthBasedSize,
+                    height: MediaAwareSize(context, expandLimit, .055, 50)
+                        .widthBasedSize,
                     child: GestureDetector(
                       onTap: () async {
                         await Clipboard.setData(
@@ -75,7 +75,7 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
                                     style: TextStyle(
                                         fontSize: MediaAwareSize(
                                                 context, expandLimit, .015, 14)
-                                            .size),
+                                            .widthBasedSize),
                                     child: Text(
                                         widget.discordUnixstamp.toString()))),
                           )),
