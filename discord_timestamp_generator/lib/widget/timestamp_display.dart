@@ -28,6 +28,7 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     var clipboardNotifier = context.watch<ClipboardNotifier>();
+    const expandLimit = 930;
 
     return ListenableBuilder(
         listenable: widget.discordUnixstamp,
@@ -36,9 +37,10 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               DefaultTextStyle.merge(
-                style: const TextStyle(
-                  fontSize: 12,
-                  fontStyle: FontStyle.italic,
+                style: TextStyle(
+                  fontSize: MediaQuery.of(context).size.width > expandLimit
+                      ? MediaQuery.of(context).size.width / 70
+                      : 14,
                 ),
                 child: Padding(
                   padding: const EdgeInsets.only(
@@ -50,7 +52,12 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
               Wrap(
                 children: [
                   SizedBox(
-                    width: 155,
+                    width: MediaQuery.of(context).size.width > expandLimit
+                        ? MediaQuery.of(context).size.width / 6
+                        : 155,
+                    height: MediaQuery.of(context).size.width > expandLimit
+                        ? MediaQuery.of(context).size.width / 18.5
+                        : 50,
                     child: GestureDetector(
                       onTap: () async {
                         await Clipboard.setData(
@@ -66,8 +73,18 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
                                 left: 10, bottom: 6, right: 10, top: 6),
                             child: Align(
                                 alignment: Alignment.center,
-                                child:
-                                    Text(widget.discordUnixstamp.toString())),
+                                child: DefaultTextStyle.merge(
+                                    style: TextStyle(
+                                        fontSize:
+                                            MediaQuery.of(context).size.width >
+                                                    expandLimit
+                                                ? MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    70
+                                                : 14),
+                                    child: Text(
+                                        widget.discordUnixstamp.toString()))),
                           )),
                     ),
                   ),

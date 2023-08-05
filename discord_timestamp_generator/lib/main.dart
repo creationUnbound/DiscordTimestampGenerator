@@ -13,9 +13,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Discord Timestamp Generator',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        brightness: Brightness.light,
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey),
         useMaterial3: true,
+        /* light theme settings */
       ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        colorScheme: ColorScheme.fromSwatch(
+            primarySwatch: Colors.grey, brightness: Brightness.dark),
+        useMaterial3: true,
+        /* dark theme settings */
+      ),
+      themeMode: ThemeMode.dark,
       home: const HomePage(),
     );
   }
