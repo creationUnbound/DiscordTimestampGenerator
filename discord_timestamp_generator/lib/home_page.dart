@@ -37,13 +37,8 @@ class _HomePageState extends State<HomePage> {
           DiscordUnixstamp(style, dateTimePicker.dateTime);
       timestampDisplays.add(
         TimestampDisplay(
-            discordUnixstamp: discordUnixstamp,
-            onPressedExtension: () async {
-              /*
-              booleanTextNotifier.setText(await ClipboardComparator.isEqual(
-                  discordUnixstamp.toString()));
-                  */
-            }),
+          discordUnixstamp: discordUnixstamp,
+        ),
       );
     }
 

@@ -8,12 +8,8 @@ import 'package:provider/provider.dart';
 
 class TimestampDisplay extends StatefulWidget {
   final DiscordUnixstamp discordUnixstamp;
-  final VoidCallback onPressedExtension;
 
-  const TimestampDisplay(
-      {super.key,
-      required this.discordUnixstamp,
-      required this.onPressedExtension});
+  const TimestampDisplay({super.key, required this.discordUnixstamp});
 
   @override
   State<TimestampDisplay> createState() => _TimestampDisplayState();
@@ -86,7 +82,7 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
                         left: 2, bottom: 6, right: 10, top: 4),
                     child: ElevatedButton.icon(
                         onPressed: () async {
-                          // Need a way to encapsulate this in a function so it can be called from multiple parts of this file
+                          // TODO: Need a way to encapsulate this in a function so it can be called from multiple parts of this file
                           await Clipboard.setData(
                               // Copies timestamp to clipboard
                               ClipboardData(
