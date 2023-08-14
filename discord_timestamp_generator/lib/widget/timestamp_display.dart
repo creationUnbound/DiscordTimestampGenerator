@@ -80,23 +80,36 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
                   Padding(
                     padding: const EdgeInsets.only(
                         left: 2, bottom: 6, right: 10, top: 4),
-                    child: ElevatedButton.icon(
-                        onPressed: () async {
-                          // TODO: Need a way to encapsulate this in a function so it can be called from multiple parts of this file
-                          await Clipboard.setData(
-                              // Copies timestamp to clipboard
-                              ClipboardData(
-                                  text: widget.discordUnixstamp.toString()));
-                          await clipboardNotifier.updateTextFromClipboard();
-                        },
-                        icon: Icon((clipboardNotifier.text ==
-                                widget.discordUnixstamp.toString())
-                            ? Icons.check
-                            : Icons.copy),
-                        label: Text((clipboardNotifier.text ==
-                                widget.discordUnixstamp.toString())
-                            ? "Copied!"
-                            : "Copy Text")),
+                    child: SizedBox(
+                      width: MediaAwareSize(context, expandLimit, .150, 138)
+                          .widthBasedSize,
+                      height: MediaAwareSize(context, expandLimit, .049, 43)
+                          .widthBasedSize,
+                      child: ElevatedButton.icon(
+                          onPressed: () async {
+                            // TODO: Need a way to encapsulate this in a function so it can be called from multiple parts of this file
+                            await Clipboard.setData(
+                                // Copies timestamp to clipboard
+                                ClipboardData(
+                                    text: widget.discordUnixstamp.toString()));
+                            await clipboardNotifier.updateTextFromClipboard();
+                          },
+                          icon: Icon((clipboardNotifier.text ==
+                                  widget.discordUnixstamp.toString())
+                              ? Icons.check
+                              : Icons.copy),
+                          label: DefaultTextStyle.merge(
+                            style: TextStyle(
+                              fontSize:
+                                  MediaAwareSize(context, expandLimit, .015, 14)
+                                      .widthBasedSize,
+                            ),
+                            child: Text((clipboardNotifier.text ==
+                                    widget.discordUnixstamp.toString())
+                                ? "Copied!"
+                                : "Copy Text"),
+                          )),
+                    ),
                   )
                 ],
               ),
