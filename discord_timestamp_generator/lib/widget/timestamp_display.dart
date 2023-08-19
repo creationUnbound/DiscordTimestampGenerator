@@ -86,6 +86,11 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
                       height: MediaAwareSize(context, expandLimit, .049, 43)
                           .widthBasedSize,
                       child: ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                              foregroundColor:
+                                  theme.colorScheme.onPrimaryContainer,
+                              backgroundColor:
+                                  theme.colorScheme.primaryContainer),
                           onPressed: () async {
                             // TODO: Need a way to encapsulate this in a function so it can be called from multiple parts of this file
                             await Clipboard.setData(
