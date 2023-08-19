@@ -25,7 +25,6 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     var clipboardNotifier = context.watch<ClipboardNotifier>();
-    const double expandLimit = 930;
 
     return ListenableBuilder(
         listenable: widget.discordUnixstamp,
@@ -34,9 +33,8 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               DefaultTextStyle.merge(
-                style: TextStyle(
-                  fontSize: MediaAwareSize(context, expandLimit, .015, 14)
-                      .widthBasedSize,
+                style: const TextStyle(
+                  fontSize: 14,
                 ),
                 child: Padding(
                   padding: const EdgeInsets.only(
@@ -48,10 +46,8 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
               Wrap(
                 children: [
                   SizedBox(
-                    width: MediaAwareSize(context, expandLimit, .169, 155)
-                        .widthBasedSize,
-                    height: MediaAwareSize(context, expandLimit, .055, 50)
-                        .widthBasedSize,
+                    width: 155,
+                    height: 50,
                     child: GestureDetector(
                       onTap: () async {
                         await Clipboard.setData(
@@ -68,10 +64,7 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
                             child: Align(
                                 alignment: Alignment.center,
                                 child: DefaultTextStyle.merge(
-                                    style: TextStyle(
-                                        fontSize: MediaAwareSize(
-                                                context, expandLimit, .015, 14)
-                                            .widthBasedSize),
+                                    style: const TextStyle(fontSize: 14),
                                     child: Text(
                                         widget.discordUnixstamp.toString()))),
                           )),
@@ -81,10 +74,8 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
                     padding: const EdgeInsets.only(
                         left: 2, bottom: 6, right: 10, top: 4),
                     child: SizedBox(
-                      width: MediaAwareSize(context, expandLimit, .150, 138)
-                          .widthBasedSize,
-                      height: MediaAwareSize(context, expandLimit, .049, 43)
-                          .widthBasedSize,
+                      width: 138,
+                      height: 43,
                       child: ElevatedButton.icon(
                           style: ElevatedButton.styleFrom(
                               foregroundColor:
@@ -104,10 +95,8 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
                               ? Icons.check
                               : Icons.copy),
                           label: DefaultTextStyle.merge(
-                            style: TextStyle(
-                              fontSize:
-                                  MediaAwareSize(context, expandLimit, .015, 14)
-                                      .widthBasedSize,
+                            style: const TextStyle(
+                              fontSize: 14,
                             ),
                             child: Text((clipboardNotifier.text ==
                                     widget.discordUnixstamp.toString())
