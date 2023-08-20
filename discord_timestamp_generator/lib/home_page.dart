@@ -17,13 +17,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   TextEditingController dateController = TextEditingController();
+  late DateTimePicker dateTimePicker;
 
   @override
   void initState() {
-    super.initState();
-    DateTimePicker dateTimePicker = DateTimePicker(context);
+    dateTimePicker = DateTimePicker(context);
     dateController.text =
         DateFormat.yMd().add_jm().format(dateTimePicker.dateTime);
+    super.initState();
   }
 
   @override
