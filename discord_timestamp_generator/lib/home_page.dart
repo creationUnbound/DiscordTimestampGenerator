@@ -23,10 +23,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    super.initState();
     dateTimePicker = DateTimePicker(context);
     dateController.text =
         DateFormat.yMd().add_jm().format(dateTimePicker.dateTime);
-    super.initState();
 
     //List of TimestampDisplay widgets
     for (var style in DiscordUnixstampStyle.values) {
@@ -42,23 +42,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    //DateTimePicker dateTimePicker = DateTimePicker(context);
-    //ClipboardNotifier clipboardComparator = ClipboardNotifier();
-
-    //List of TimestampDisplay widgets
-    /*
-    List<TimestampDisplay> timestampDisplays = [];
-    for (var style in DiscordUnixstampStyle.values) {
-      DiscordUnixstamp discordUnixstamp =
-          DiscordUnixstamp(style, dateTimePicker.dateTime);
-      timestampDisplays.add(
-        TimestampDisplay(
-          discordUnixstamp: discordUnixstamp,
-        ),
-      );
-    }
-    */
-
     return Scaffold(
         appBar: AppBar(
           title: const Text("Discord Timestamp Generator"),
