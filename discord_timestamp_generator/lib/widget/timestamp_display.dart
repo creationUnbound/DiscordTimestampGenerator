@@ -1,6 +1,6 @@
 import 'package:discord_timestamp_generator/utility/clipboard_notifier.dart';
 import 'package:discord_timestamp_generator/utility/discord_unixstamp/discord_unixstamp.dart';
-import 'package:discord_timestamp_generator/utility/media_aware_size.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -61,8 +61,7 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 6, right: 10, top: 6),
-                            child: Align(
-                                alignment: Alignment.center,
+                            child: Center(
                                 child: DefaultTextStyle.merge(
                                     style: const TextStyle(fontSize: 14),
                                     child: Text(
