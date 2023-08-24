@@ -50,34 +50,51 @@ class _HomePageState extends State<HomePage> {
         body: ListView(
           padding: const EdgeInsets.all(10),
           children: [
-            Column(children: [
-              AnimatedPadding(
-                padding: EdgeInsets.only(
-                    left: MediaAwareSize(context, 350, .05, 0).widthBasedSize,
-                    top: 0,
-                    right: MediaAwareSize(context, 350, .05, 0).widthBasedSize,
-                    bottom: 0),
-                duration: const Duration(milliseconds: 250),
-                child: TextField(
-                    controller: dateController,
-                    decoration: const InputDecoration(
-                        icon: Icon(Icons.calendar_today),
-                        labelText: "Enter Date"),
-                    readOnly: true,
-                    onTap: () async {
-                      await dateTimePicker.pickDateTime();
-                      dateController.text = DateFormat.yMd()
-                          .add_jm()
-                          .format(dateTimePicker.dateTime);
-                      // Tells the TimestampDisplays that they can update their dateTime.
-                      for (var timestampDisplay in timestampDisplays) {
-                        timestampDisplay.discordUnixstamp
-                            .update(dateTimePicker.dateTime);
-                      }
-                    }),
-              ),
-              const SizedBox(height: 10),
-            ]),
+            Row(
+              children: [
+                Expanded(
+                  child: Column(mainAxisSize: MainAxisSize.min, children: [
+                    Flexible(
+                      child: AnimatedPadding(
+                        padding: EdgeInsets.only(
+                            left: MediaAwareSize(context, 350, .05, 0)
+                                .widthBasedSize,
+                            right: MediaAwareSize(context, 350, .04, 10)
+                                .widthBasedSize,
+                            bottom: 15),
+                        duration: const Duration(milliseconds: 250),
+                        child: TextField(
+                            controller: dateController,
+                            decoration: const InputDecoration(
+                                icon: Icon(Icons.calendar_today),
+                                labelText: "Enter Date"),
+                            readOnly: true,
+                            onTap: () async {
+                              await dateTimePicker.pickDateTime();
+                              dateController.text = DateFormat.yMd()
+                                  .add_jm()
+                                  .format(dateTimePicker.dateTime);
+                              // Tells the TimestampDisplays that they can update their dateTime.
+                              for (var timestampDisplay in timestampDisplays) {
+                                timestampDisplay.discordUnixstamp
+                                    .update(dateTimePicker.dateTime);
+                              }
+                            }),
+                      ),
+                    ),
+                  ]),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: CircleAvatar(
+                      backgroundColor:
+                          Theme.of(context).colorScheme.primaryContainer,
+                      child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.nightlight))),
+                )
+              ],
+            ),
             Center(
               child: ChangeNotifierProvider.value(
                   value: clipboardComparator,
