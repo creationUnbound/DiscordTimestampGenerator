@@ -1,6 +1,7 @@
 import 'package:discord_timestamp_generator/utility/clipboard_notifier.dart';
 import 'package:discord_timestamp_generator/utility/discord_unixstamp/discord_unixstamp.dart';
 import 'package:discord_timestamp_generator/utility/media_aware_size.dart';
+import 'package:discord_timestamp_generator/utility/theme_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   ClipboardNotifier clipboardComparator = ClipboardNotifier();
+  late ThemeNotifier themeNotifier;
   TextEditingController dateController = TextEditingController();
   List<TimestampDisplay> timestampDisplays = [];
   late DateTimePicker dateTimePicker;
@@ -42,6 +44,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    themeNotifier = context.watch<ThemeNotifier>();
+
     return Scaffold(
         appBar: AppBar(
           title: const Text("Discord Timestamp Generator"),
@@ -90,8 +94,12 @@ class _HomePageState extends State<HomePage> {
                       backgroundColor:
                           Theme.of(context).colorScheme.primaryContainer,
                       child: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.nightlight))),
+                          onPressed: () {
+                            themeNotifier.switchTheme();
+                          },
+                          icon: Icon(!themeNotifier.isDark
+                              ? Icons.nightlight
+                              : Icons.sunny))),
                 )
               ],
             ),

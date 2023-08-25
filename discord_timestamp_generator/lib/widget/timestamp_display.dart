@@ -16,6 +16,8 @@ class TimestampDisplay extends StatefulWidget {
 }
 
 class _TimestampDisplayState extends State<TimestampDisplay> {
+  late ClipboardNotifier clipboardNotifier;
+
   @override
   void initState() {
     super.initState();
@@ -24,7 +26,7 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    var clipboardNotifier = context.watch<ClipboardNotifier>();
+    clipboardNotifier = context.watch<ClipboardNotifier>();
 
     return ListenableBuilder(
         listenable: widget.discordUnixstamp,
