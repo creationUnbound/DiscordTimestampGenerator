@@ -10,20 +10,35 @@ class SubtleNotification extends StatefulWidget {
 }
 
 class _SubtleNotificationState extends State<SubtleNotification> {
-  late ChangeNotifier notifier;
+  late ClipboardNotifier notifier;
+  late bool _visible;
+
+  @override
+  void initState() {
+    super.initState();
+    _visible = false;
+  }
   
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    bool _visible = true;
     notifier = context.watch<ClipboardNotifier>();
+    _visible = !_visible;
+
+    double opacityController() {
+      if (_visible) {
+        return 1.0;
+      } else {
+        return 0.0;
+      }
+    }
 
     return AnimatedOpacity(
-        opacity: _visible ? 1.0 : 0.0,
+        opacity: opacityController(),
         duration: const Duration(milliseconds: 500),
         child: SizedBox(
             width: 155,
             height: 50,
-            child: Card(color: theme.colorScheme.primaryContainer)));
+            child: Card(color: theme.colorScheme.primaryContainer, child: Text("Copied ${notifier.text}!"),)));
   }
 }
