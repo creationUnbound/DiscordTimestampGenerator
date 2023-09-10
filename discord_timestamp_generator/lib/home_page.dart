@@ -108,10 +108,13 @@ class _HomePageState extends State<HomePage> {
               ),
               ChangeNotifierProvider.value(
                   value: clipboardComparator,
-                  child: Column(
+                  child: Stack(
+                    alignment: Alignment.center,
                     children: [
                       Center(child: Wrap(children: timestampDisplays)),
-                      Center(child: const SubtleNotification()),
+                      /*const AnimatedPositioned(
+                        duration: Duration(milliseconds: 500),
+                        child: SubtleNotification()),*/
                     ],
                   )),
             ],
