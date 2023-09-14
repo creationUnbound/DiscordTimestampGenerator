@@ -22,6 +22,7 @@ class _HomePageState extends State<HomePage> {
   late ThemeNotifier themeNotifier;
   TextEditingController dateController = TextEditingController();
   List<TimestampDisplay> timestampDisplays = [];
+  List<SubtleNotification> subtleNotifications = [];
   late DateTimePicker dateTimePicker;
 
   @override
@@ -109,10 +110,14 @@ class _HomePageState extends State<HomePage> {
                     alignment: Alignment.center,
                     children: [
                       Center(child: Wrap(children: timestampDisplays)),
-                      //ListView.builder(itemCount:),
-                      /*const AnimatedPositioned(
+                      ListView.builder(shrinkWrap: true,
+                        itemCount: subtleNotifications.length,
+                      //TODO: When clipboardComparator notifies children, it needs to create a new subtlenotification
+                      itemBuilder: ((context, index) {
+                        return const AnimatedPositioned(
                         duration: Duration(milliseconds: 500),
-                        child: SubtleNotification()),*/
+                        child: SubtleNotification());
+                      }),),
                     ],
                   )),
             ],
