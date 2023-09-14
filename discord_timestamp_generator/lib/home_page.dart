@@ -47,8 +47,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     themeNotifier = context.watch<ThemeNotifier>();
 
-    return Stack(children: [
-      Scaffold(
+    return Scaffold(
           appBar: AppBar(
             title: const Text("Discord Timestamp Generator"),
             backgroundColor: Theme.of(context).colorScheme.primaryContainer,
@@ -112,13 +111,13 @@ class _HomePageState extends State<HomePage> {
                     alignment: Alignment.center,
                     children: [
                       Center(child: Wrap(children: timestampDisplays)),
+                      //ListView.builder(itemCount:),
                       /*const AnimatedPositioned(
                         duration: Duration(milliseconds: 500),
                         child: SubtleNotification()),*/
                     ],
                   )),
             ],
-          )),
-    ]);
+          ));
   }
 }
