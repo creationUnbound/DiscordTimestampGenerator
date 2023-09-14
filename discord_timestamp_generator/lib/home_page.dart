@@ -32,12 +32,10 @@ class _HomePageState extends State<HomePage> {
         DateFormat.yMd().add_jm().format(dateTimePicker.dateTime);
 
     //List of TimestampDisplay widgets
-    for (var style in DiscordUnixstampStyle.values) {
-      DiscordUnixstamp discordUnixstamp =
-          DiscordUnixstamp(style, dateTimePicker.dateTime);
+    for (var style in DiscordUnixstampStyle.values) {    
       timestampDisplays.add(
         TimestampDisplay(
-          discordUnixstamp: discordUnixstamp,
+          discordUnixstamp: DiscordUnixstamp(style, dateTimePicker.dateTime),
         ),
       );
     }
