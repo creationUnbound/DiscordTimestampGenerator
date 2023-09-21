@@ -1,5 +1,6 @@
 import 'package:discord_timestamp_generator/utility/clipboard_notifier.dart';
 import 'package:discord_timestamp_generator/utility/discord_unixstamp/discord_unixstamp.dart';
+import 'package:discord_timestamp_generator/widget/subtle_notification.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,6 +22,36 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
   @override
   void initState() {
     super.initState();
+  }
+
+  void _copyToClipboard() async {
+    await Clipboard.setData(
+        // Copies timestamp to clipboard
+        ClipboardData(text: widget.discordUnixstamp.toString()));
+    await clipboardNotifier.updateTextFromClipboard();
+  }
+
+  void _clipboardSuccess(ClipboardNotifier clipboardNotifier) async {
+    OverlayState overlayState = Overlay.of(context);
+    OverlayEntry overlayEntry;
+
+    overlayEntry = OverlayEntry(builder: (context) {
+      return AnimatedPositioned(
+          left: (MediaQuery.of(context).size.width / 2) - 105,
+          bottom: 30,
+          duration: const Duration(milliseconds: 500),
+          child: ChangeNotifierProvider.value(
+              value: clipboardNotifier, child: const SubtleNotification()));
+    });
+
+    // Inserting the OverlayEntry into the Overlay
+    overlayState.insert(overlayEntry);
+
+    // Awaiting for 3 seconds
+    await Future.delayed(const Duration(seconds: 3));
+
+    // Removing the OverlayEntry from the Overlay
+    overlayEntry.remove();
   }
 
   @override
@@ -52,11 +83,8 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
                     height: 50,
                     child: GestureDetector(
                       onTap: () async {
-                        await Clipboard.setData(
-                            // Copies timestamp to clipboard
-                            ClipboardData(
-                                text: widget.discordUnixstamp.toString()));
-                        await clipboardNotifier.updateTextFromClipboard();
+                        _copyToClipboard();
+                        _clipboardSuccess(clipboardNotifier);
                       },
                       child: Card(
                           color: theme.colorScheme.surfaceVariant,
@@ -84,12 +112,8 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
                               backgroundColor:
                                   theme.colorScheme.primaryContainer),
                           onPressed: () async {
-                            // TODO: Need a way to encapsulate this in a function so it can be called from multiple parts of this file
-                            await Clipboard.setData(
-                                // Copies timestamp to clipboard
-                                ClipboardData(
-                                    text: widget.discordUnixstamp.toString()));
-                            await clipboardNotifier.updateTextFromClipboard();
+                            _copyToClipboard();
+                            _clipboardSuccess(clipboardNotifier);
                           },
                           icon: Icon((clipboardNotifier.text ==
                                   widget.discordUnixstamp.toString())

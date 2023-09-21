@@ -16,29 +16,29 @@ class _SubtleNotificationState extends State<SubtleNotification> {
   @override
   void initState() {
     super.initState();
-    _visible = false;
+    _visible = true;
+
+    Future.delayed(const Duration(seconds: 2)).then((value) {
+      setState(() {
+        _visible = false;
+      });
+    });
   }
   
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     notifier = context.watch<ClipboardNotifier>();
-    _visible = !_visible;
-
-    double opacityController() {
-      if (_visible) {
-        return 1.0;
-      } else {
-        return 0.0;
-      }
-    }
 
     return AnimatedOpacity(
-        opacity: opacityController(),
-        duration: const Duration(milliseconds: 500),
+        opacity: _visible? 1.0 : 0.0,
+        duration: const Duration(seconds: 1),
         child: SizedBox(
-            width: 155,
+            width: 210,
             height: 50,
-            child: Card(color: theme.colorScheme.primaryContainer, child: Text("Copied ${notifier.text}!"),)));
+            child: Card(color: theme.colorScheme.primaryContainer, child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(child: Text("Copied ${notifier.text}!")),
+            ),)));
   }
 }

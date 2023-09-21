@@ -48,6 +48,10 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
           appBar: AppBar(
+            leading: const Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: Icon(Icons.discord, size: 50),
+            ),
             title: const Text("Discord Timestamp Generator"),
             backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           ),
@@ -106,20 +110,7 @@ class _HomePageState extends State<HomePage> {
               ),
               ChangeNotifierProvider.value(
                   value: clipboardComparator,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Center(child: Wrap(children: timestampDisplays)),
-                      ListView.builder(shrinkWrap: true,
-                        itemCount: subtleNotifications.length,
-                      //TODO: When clipboardComparator notifies children, it needs to create a new subtlenotification
-                      itemBuilder: ((context, index) {
-                        return const AnimatedPositioned(
-                        duration: Duration(milliseconds: 500),
-                        child: SubtleNotification());
-                      }),),
-                    ],
-                  )),
+                  child: Center(child: Wrap(children: timestampDisplays))),
             ],
           ));
   }
