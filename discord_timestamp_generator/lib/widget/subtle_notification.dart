@@ -18,7 +18,7 @@ class _SubtleNotificationState extends State<SubtleNotification> {
     super.initState();
     _visible = true;
 
-    Future.delayed(const Duration(seconds: 2)).then((value) {
+    Future.delayed(const Duration(seconds: 1)).then((value) {
       setState(() {
         _visible = false;
       });
@@ -32,7 +32,7 @@ class _SubtleNotificationState extends State<SubtleNotification> {
 
     return AnimatedOpacity(
         opacity: _visible? 1.0 : 0.0,
-        duration: const Duration(seconds: 1),
+        duration: const Duration(milliseconds: 500),
         child: SizedBox(
             width: 210,
             height: 50,

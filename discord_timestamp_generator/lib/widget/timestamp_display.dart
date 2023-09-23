@@ -34,12 +34,17 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
   void _clipboardSuccess(ClipboardNotifier clipboardNotifier) async {
     OverlayState overlayState = Overlay.of(context);
     OverlayEntry overlayEntry;
+    bool moving = false;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      moving = true;
+    });
 
     overlayEntry = OverlayEntry(builder: (context) {
       return AnimatedPositioned(
           left: (MediaQuery.of(context).size.width / 2) - 105,
-          bottom: 30,
-          duration: const Duration(milliseconds: 500),
+          bottom: moving ? 200 : 30,
+          duration: const Duration(seconds: 2),
           child: ChangeNotifierProvider.value(
               value: clipboardNotifier, child: const SubtleNotification()));
     });
@@ -48,7 +53,7 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
     overlayState.insert(overlayEntry);
 
     // Awaiting for 3 seconds
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 2));
 
     // Removing the OverlayEntry from the Overlay
     overlayEntry.remove();
@@ -113,7 +118,7 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
                                   theme.colorScheme.primaryContainer),
                           onPressed: () async {
                             _copyToClipboard();
-                            _clipboardSuccess(clipboardNotifier);
+                            _clipboardSuccess(clipboardNotifier);  
                           },
                           icon: Icon((clipboardNotifier.text ==
                                   widget.discordUnixstamp.toString())
