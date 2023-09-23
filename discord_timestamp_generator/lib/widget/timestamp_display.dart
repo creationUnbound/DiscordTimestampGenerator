@@ -16,8 +16,18 @@ class TimestampDisplay extends StatefulWidget {
   State<TimestampDisplay> createState() => _TimestampDisplayState();
 }
 
-class _TimestampDisplayState extends State<TimestampDisplay> {
+class _TimestampDisplayState extends State<TimestampDisplay>
+    with TickerProviderStateMixin {
   late ClipboardNotifier clipboardNotifier;
+
+  late AnimationController _controller;
+  late final Animation<Offset> _offsetAnimation = Tween<Offset>(
+    begin: Offset.zero,
+    end: const Offset(0.0, -1.5),
+  ).animate(CurvedAnimation(
+    parent: _controller,
+    curve: Curves.easeOut,
+  ));
 
   @override
   void initState() {
@@ -34,28 +44,35 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
   void _clipboardSuccess() async {
     OverlayState overlayState = Overlay.of(context);
     OverlayEntry overlayEntry;
-    bool moving = false;
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      moving = true;
-    });
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 2));
 
     overlayEntry = OverlayEntry(builder: (context) {
-      return AnimatedPositioned(
+      return Positioned(
           left: (MediaQuery.of(context).size.width / 2) - 105,
-          bottom: moving ? 200 : 30,
-          duration: const Duration(seconds: 2),
-          child: SubtleNotification(text: "Copied ${widget.discordUnixstamp}"));
+          bottom: 30,
+          child: SlideTransition(
+              position: _offsetAnimation,
+              child: SubtleNotification(
+                  text: "Copied ${widget.discordUnixstamp}")));
     });
 
-    // Inserting the OverlayEntry into the Overlay
-    overlayState.insert(overlayEntry);
+    _controller.addListener(() {
+      overlayState.setState(() {});
+    });
+    // Starting the animation
+    _controller.forward();
 
-    // Awaiting for 3 seconds
+    overlayState.insert(overlayEntry);
     await Future.delayed(const Duration(seconds: 2));
 
-    // Removing the OverlayEntry from the Overlay
     overlayEntry.remove();
+    try {
+      _controller.dispose();
+    } catch (exception) {
+      return;
+    }
+    //TODO: AnimationController seems to stop working prematurely
   }
 
   @override
@@ -117,7 +134,7 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
                                   theme.colorScheme.primaryContainer),
                           onPressed: () async {
                             _copyToClipboard();
-                            _clipboardSuccess();  
+                            _clipboardSuccess();
                           },
                           icon: Icon((clipboardNotifier.text ==
                                   widget.discordUnixstamp.toString())
