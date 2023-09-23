@@ -31,7 +31,7 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
     await clipboardNotifier.updateTextFromClipboard();
   }
 
-  void _clipboardSuccess(ClipboardNotifier clipboardNotifier) async {
+  void _clipboardSuccess() async {
     OverlayState overlayState = Overlay.of(context);
     OverlayEntry overlayEntry;
     bool moving = false;
@@ -45,8 +45,7 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
           left: (MediaQuery.of(context).size.width / 2) - 105,
           bottom: moving ? 200 : 30,
           duration: const Duration(seconds: 2),
-          child: ChangeNotifierProvider.value(
-              value: clipboardNotifier, child: const SubtleNotification()));
+          child: SubtleNotification(text: "Copied ${widget.discordUnixstamp}"));
     });
 
     // Inserting the OverlayEntry into the Overlay
@@ -89,7 +88,7 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
                     child: GestureDetector(
                       onTap: () async {
                         _copyToClipboard();
-                        _clipboardSuccess(clipboardNotifier);
+                        _clipboardSuccess();
                       },
                       child: Card(
                           color: theme.colorScheme.surfaceVariant,
@@ -118,7 +117,7 @@ class _TimestampDisplayState extends State<TimestampDisplay> {
                                   theme.colorScheme.primaryContainer),
                           onPressed: () async {
                             _copyToClipboard();
-                            _clipboardSuccess(clipboardNotifier);  
+                            _clipboardSuccess();  
                           },
                           icon: Icon((clipboardNotifier.text ==
                                   widget.discordUnixstamp.toString())
