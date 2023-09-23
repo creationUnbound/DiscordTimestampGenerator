@@ -69,6 +69,12 @@ class _TimestampDisplayState extends State<TimestampDisplay>
     overlayEntry.remove();
     _controller?.dispose();
     _controller = null;
+
+    if (null != _controller) {
+      _controller!
+        ..stop()
+        ..dispose();
+    }
     //TODO: AnimationController seems to stop working prematurely
     //Possible memory leaK
   }
