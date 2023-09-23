@@ -20,12 +20,12 @@ class _TimestampDisplayState extends State<TimestampDisplay>
     with TickerProviderStateMixin {
   late ClipboardNotifier clipboardNotifier;
 
-  late AnimationController _controller;
+  late AnimationController? _controller;
   late final Animation<Offset> _offsetAnimation = Tween<Offset>(
     begin: Offset.zero,
     end: const Offset(0.0, -1.5),
   ).animate(CurvedAnimation(
-    parent: _controller,
+    parent: _controller!,
     curve: Curves.easeOut,
   ));
 
@@ -57,22 +57,20 @@ class _TimestampDisplayState extends State<TimestampDisplay>
                   text: "Copied ${widget.discordUnixstamp}")));
     });
 
-    _controller.addListener(() {
+    _controller!.addListener(() {
       overlayState.setState(() {});
     });
     // Starting the animation
-    _controller.forward();
+    _controller!.forward();
 
     overlayState.insert(overlayEntry);
     await Future.delayed(const Duration(seconds: 2));
 
     overlayEntry.remove();
-    try {
-      _controller.dispose();
-    } catch (exception) {
-      return;
-    }
+    _controller?.dispose();
+    _controller = null;
     //TODO: AnimationController seems to stop working prematurely
+    //Possible memory leaK
   }
 
   @override
