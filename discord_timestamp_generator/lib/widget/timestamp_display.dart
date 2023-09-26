@@ -35,13 +35,13 @@ class _TimestampDisplayState extends State<TimestampDisplay>
   void _clipboardSuccess() async {
     OverlayState overlayState = Overlay.of(context);
     OverlayEntry overlayEntry;
-    
-    AnimationController? _controller = AnimationController(vsync: this, duration: const Duration(seconds: 2));
-    Animation<Offset> _offsetAnimation = Tween<Offset>(
+
+    AnimationController? controller = AnimationController(vsync: this, duration: const Duration(seconds: 2));
+    Animation<Offset> offsetAnimation = Tween<Offset>(
       begin: Offset.zero,
       end: const Offset(0.0, -1.5),
     ).animate(CurvedAnimation(
-      parent: _controller!,
+      parent: controller,
       curve: Curves.easeOut,
     )..addStatusListener((status) => print('$status')));
 
@@ -50,22 +50,22 @@ class _TimestampDisplayState extends State<TimestampDisplay>
           left: (MediaQuery.of(context).size.width / 2) - 105,
           bottom: 30,
           child: SlideTransition(
-              position: _offsetAnimation,
+              position: offsetAnimation,
               child: SubtleNotification(
                   text: "Copied ${widget.discordUnixstamp}")));
     });
 
-    _controller.addListener(() {
+    controller.addListener(() {
       overlayState.setState(() {});
     });
     // Starting the animation
-    _controller.forward();
+    controller.forward();
 
     overlayState.insert(overlayEntry);
     await Future.delayed(const Duration(seconds: 2));
 
     overlayEntry.remove();
-    _controller.dispose();
+    controller.dispose();
 
     //TODO: AnimationController seems to stop working prematurely
     //Possible memory leaK
