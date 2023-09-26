@@ -43,7 +43,7 @@ class _TimestampDisplayState extends State<TimestampDisplay>
     ).animate(CurvedAnimation(
       parent: controller,
       curve: Curves.easeOut,
-    )..addStatusListener((status) => print('$status')));
+    ));
 
     overlayEntry = OverlayEntry(builder: (context) {
       return Positioned(
