@@ -6,14 +6,20 @@ class DiscordUnixstamp with ChangeNotifier {
   int unixstamp = 0;
   DateTime dateTime = DateTime.now();
   DiscordUnixstampStyle style;
+  bool format12Hr = true;
 
   DiscordUnixstamp(this.style, this.dateTime) {
     unixstamp = dateTime.secondsSinceEpoch;
   }
 
-  void update(DateTime dateTime) {
+  void updateDateTime(DateTime dateTime) {
     unixstamp = dateTime.secondsSinceEpoch;
     this.dateTime = dateTime;
+    notifyListeners();
+  }
+
+  void switchFormat() {
+    format12Hr = !format12Hr;
     notifyListeners();
   }
 

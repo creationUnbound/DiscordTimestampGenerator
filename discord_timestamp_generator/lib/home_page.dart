@@ -21,6 +21,7 @@ class _HomePageState extends State<HomePage> {
   ClipboardNotifier clipboardComparator = ClipboardNotifier();
   late ThemeNotifier themeNotifier;
   TextEditingController dateController = TextEditingController();
+  bool format12Hr = true;
   List<TimestampDisplay> timestampDisplays = [];
   List<SubtleNotification> subtleNotifications = [];
   late DateTimePicker dateTimePicker;
@@ -79,33 +80,52 @@ class _HomePageState extends State<HomePage> {
                               readOnly: true,
                               onTap: () async {
                                 await dateTimePicker.pickDateTime();
-                                dateController.text = DateFormat.yMd()
+                                dateController.text = format12Hr? DateFormat.yMd()
                                     .add_jm()
+                                    .format(dateTimePicker.dateTime) : DateFormat("dd/M/yyyy H:mm")
                                     .format(dateTimePicker.dateTime);
                                 // Tells the TimestampDisplays that they can update their dateTime.
                                 for (var timestampDisplay
                                     in timestampDisplays) {
                                   timestampDisplay.discordUnixstamp
-                                      .update(dateTimePicker.dateTime);
+                                      .updateDateTime(dateTimePicker.dateTime);
                                 }
                               }),
                         ),
                       ),
                     ]),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: CircleAvatar(
-                        backgroundColor:
-                            Theme.of(context).colorScheme.primaryContainer,
-                        child: IconButton(
-                            onPressed: () {
-                              themeNotifier.switchTheme();
-                            },
-                            icon: Icon(!themeNotifier.isDark
-                                ? Icons.nightlight
-                                : Icons.sunny))),
-                  )
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5, right: 10),
+                        child: CircleAvatar(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primaryContainer,
+                            child: IconButton(
+                                onPressed: () {
+                                  themeNotifier.switchTheme();
+                                },
+                                icon: Icon(!themeNotifier.isDark
+                                    ? Icons.nightlight
+                                    : Icons.sunny))),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10, right: 10),
+                        child: CircleAvatar(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primaryContainer,
+                            child: IconButton(
+                                onPressed: () {
+                                  for(var timestampDisplay in timestampDisplays) {
+                                    timestampDisplay.discordUnixstamp.switchFormat();
+                                  }
+                                  format12Hr = !format12Hr;
+                                },
+                                icon: const Icon(Icons.language))),
+                      ),
+                    ],
+                  ), 
                 ],
               ),
               ChangeNotifierProvider.value(

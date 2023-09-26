@@ -60,15 +60,12 @@ class _TimestampDisplayState extends State<TimestampDisplay>
     });
     // Starting the animation
     controller.forward();
-
     overlayState.insert(overlayEntry);
+
     await Future.delayed(const Duration(seconds: 2));
 
     overlayEntry.remove();
     controller.dispose();
-
-    //TODO: AnimationController seems to stop working prematurely
-    //Possible memory leaK
   }
 
   @override
@@ -89,7 +86,8 @@ class _TimestampDisplayState extends State<TimestampDisplay>
                 child: Padding(
                   padding: const EdgeInsets.only(
                       left: 7, bottom: 2, right: 0, top: 4),
-                  child: Text(DateFormat(widget.discordUnixstamp.style.format)
+                  child: Text(widget.discordUnixstamp.format12Hr ? DateFormat(widget.discordUnixstamp.style.format12Hr)
+                      .format(widget.discordUnixstamp.dateTime) : DateFormat(widget.discordUnixstamp.style.format24Hr)
                       .format(widget.discordUnixstamp.dateTime)),
                 ),
               ),
